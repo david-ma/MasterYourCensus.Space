@@ -91,20 +91,6 @@ header h2 {
 			</div>
 		</div>
 
-			<h2>Ok here's some dummy text:</h2>
-		<div class="row">
-			<div class="col-xs-12 col-sm-4">
-<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-			</div>
-			<div class="col-xs-12 col-sm-4">
-<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-			</div>
-			<div class="col-xs-12 col-sm-4">
-<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-			</div>
-
-
-		</div>
 	</div>
 
 	<footer>
@@ -118,5 +104,35 @@ header h2 {
 	<link rel="stylesheet" href="/css/main.css">
 	<script src="/js/vendor.min.js"></script>
 	<script src="/js/scripts.min.js"></script>
+
+
+
+
+<script>
+$.ajax({
+	url: "/newQuestion-v1.json",
+	complete: function(response){
+		if (response.status && response.status == 200) {
+//			console.log(response.responseText);
+//			console.log(JSON.parse(response.responseText));
+
+			var data = JSON.parse(response.responseText);
+			drawQuestion(data);
+		} else {
+			console.error(response);
+		}
+	}
+});
+
+
+drawQuestion(data) {
+	console.log(data);
+}
+
+
+</script>
+
+
+
 </body>
 </html>
