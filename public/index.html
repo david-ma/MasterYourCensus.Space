@@ -85,7 +85,7 @@ header h2 {
 	background: rgba(0,0,0,0.1);
 }
 #quizStuff {
-	padding-left: 0;
+	padding-left: 15px;
 	/*background: rgba(0,0,0,0.1);*/
 }
 
@@ -214,7 +214,7 @@ function checkAnswer() {
 		.style("padding-left", "1000px")
 		.on("end", function(d){
 			newQuestionV1();
-			d3.select("#quizStuff").style("padding-left", "0px");
+			d3.select("#quizStuff").style("padding-left", "15px");
 			console.log("end");
 		});
 
