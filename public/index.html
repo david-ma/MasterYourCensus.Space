@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Title</title>
+	<title>Master Your Census</title>
 
 <style>
 
@@ -26,7 +26,7 @@ header .blur_background {
 	height: 200px;
 	width: 100%;
 	position: absolute;
-  background: url("/images/unsplash.jpg");
+  background: url("/images/census.jpg");
   background-size: cover;
 	background-position: 50% 60%;
 }
@@ -34,6 +34,8 @@ footer {
 	width: 100%;
 	height: 50px;
 	background: #ddd;
+	position: fixed;
+	bottom: 0;
 }
 
 .mask {
@@ -56,6 +58,15 @@ header h2 {
 	margin: 0;
 }
 
+/*#answers li a {*/
+	/*background: pink;*/
+	/*padding: 5px;*/
+	/*margin: 50px;*/
+/*}*/
+
+
+
+
 </style>
 </head>
 <body>
@@ -66,8 +77,8 @@ header h2 {
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<h1>Testing</h1>
-					<h2>Subtitle</h2>
+					<h1>Master Your Census</h1>
+					<h2>Category: <span id="category">All</span> Location: <span id="location">All</span></h2>
 				</div>
 			</div>
 		</div>
@@ -75,7 +86,7 @@ header h2 {
 
 	<div class="container page">
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-12">
 				<h1>
 					Quiz:
 				</h1>
@@ -86,7 +97,9 @@ header h2 {
 					<li><a href="#">Melbourne</a></li>
 				</ul>
 			</div>
-			<div class="col-sm-6">
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
 				<h3>Score</h3>
 				<div id="tally">0</div>
 			</div>
@@ -122,7 +135,7 @@ newQuestionV1();
 
 function newQuestionV1() {
 	$.ajax({
-		url: "/newQuestion-v1.json",
+		url: "/v1/newQuestion.json",
 		complete: function(response){
 			if (response.status && response.status == 200) {
 				var data = JSON.parse(response.responseText);
