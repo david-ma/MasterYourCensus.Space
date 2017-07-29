@@ -162,16 +162,17 @@ newQuestionV1();
 
 
 
-function newQuestionV1() {
+function newQuestionV1(url) {
+	var url = url || "/v1/newQuestion.json";
 	$.ajax({
-		url: "/v1/newQuestion.json",
+		url: url,
 		complete: function(response){
 			if (response.status && response.status == 200) {
 				var data = JSON.parse(response.responseText);
 				drawQuestion(data);
 			} else {
 				console.error(response);
-				alert("There was an error");
+				newQuestionV1("/exampleQuestion.json");
 			}
 		}
 	});

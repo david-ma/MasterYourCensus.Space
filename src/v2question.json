@@ -1,0 +1,38 @@
+[{
+  "id": 1,
+  "type": "Multiple Choice",
+  "question": "What is the capital of Victoria?",
+  "answers": ["Melbourne", "Sydney", "Canberra"],
+  "endMessage": "Sorry, the correct answer was Melbourne!"
+}
+
+,
+
+{
+  "id": 2,
+  "type": "Slider",
+  "question": "How many people in Glen Waverley are seeking Buddhist enlightenment?",
+  "answers": [10, "%", 0, 100, 20],
+  "endMessage": "Unfortunately, you won't reach nirvana with that religion!"
+}
+,
+
+{
+  "id": 3,
+  "type": "Slider",
+  "question": "How many people in Glen Waverley are seeking Buddhist enlightenment?",
+  "answers": [10],
+  "endMessage": "Unfortunately, you won't reach nirvana with that religion!"
+}
+
+,
+
+{
+  "id": 4,
+  "type": "Slider",
+  "question": " How tall is the tallest building in Melbourne?",
+  "answers": [100, "meters", 10, 200, 30],
+  "endMessage": "Eureka Tower is 100 meters tall!"
+}
+
+]
