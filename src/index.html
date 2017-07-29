@@ -58,13 +58,28 @@ header h2 {
 	margin: 0;
 }
 
-/*#answers li a {*/
-	/*background: pink;*/
-	/*padding: 5px;*/
-	/*margin: 50px;*/
-/*}*/
+#answers a {
+	padding: 5px;
+	margin: 5px;
+	float: left;
 
 
+
+
+	color: #FFF;
+	background-color: #0095ff;
+	border-color: #07c;
+	box-shadow: inset 0 1px 0 #66bfff
+}
+
+#answers a:hover,
+#answers a:focus,
+#answers a:active {
+	color: rgba(255,255,255,0.9);
+	background-color: #07c;
+	border-color: #005999;
+	box-shadow: inset 0 1px 0 #3af;
+}
 
 
 </style>
@@ -92,10 +107,7 @@ header h2 {
 				</h1>
 
 				<h3 id="question"></h3>
-				<ul id="answers">
-					<li><a href="#">Sydney</a></li>
-					<li><a href="#">Melbourne</a></li>
-				</ul>
+				<div id="answers"></div>
 			</div>
 		</div>
 		<div class="row">
@@ -151,14 +163,15 @@ function newQuestionV1() {
 function drawQuestion(data) {
 	console.log(data);
 	d3.select("#question").text(data.question);
-	d3.selectAll("#answers li").remove();
+	d3.selectAll("#answers .answer").remove();
 	var answers = d3.select("#answers");
 
 	var correctAnswer = data.answers[0];
 
 	shuffle(data.answers).forEach(function(answer){
-		answers.append("li")
+		answers
 			.append("a").attr({
+				class: "answer",
 				correctAnswer: correctAnswer,
 				href: "#"
 			}).text(answer)
