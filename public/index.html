@@ -80,7 +80,7 @@ header h2 {
 					Quiz:
 				</h1>
 
-				<h3 id="Question"></h3>
+				<h3 id="question"></h3>
 				<ul id="answers">
 					<li><a href="#">Sydney</a></li>
 					<li><a href="#">Melbourne</a></li>
@@ -88,7 +88,7 @@ header h2 {
 			</div>
 			<div class="col-sm-6">
 				<h3>Score</h3>
-				<div id="tally"></div>
+				<div id="tally">0</div>
 			</div>
 		</div>
 
@@ -110,21 +110,30 @@ header h2 {
 
 
 <script>
-$.ajax({
-	url: "/newQuestion-v1.json",
-	complete: function(response){
-		if (response.status && response.status == 200) {
-//			console.log(response.responseText);
-//			console.log(JSON.parse(response.responseText));
+var score = 0;
 
-			var data = JSON.parse(response.responseText);
-			drawQuestion(data);
-		} else {
-			console.error(response);
+newQuestionV1();
+
+
+
+
+
+
+
+function newQuestionV1() {
+	$.ajax({
+		url: "/newQuestion-v1.json",
+		complete: function(response){
+			if (response.status && response.status == 200) {
+				var data = JSON.parse(response.responseText);
+				drawQuestion(data);
+			} else {
+				console.error(response);
+				alert("There was an error");
+			}
 		}
-	}
-});
-
+	});
+}
 
 function drawQuestion(data) {
 	console.log(data);
@@ -134,7 +143,7 @@ function drawQuestion(data) {
 
 	var correctAnswer = data.answers[0];
 
-	data.answers.forEach(function(answer){
+	shuffle(data.answers).forEach(function(answer){
 		answers.append("li")
 			.append("a").attr({
 				correctAnswer: correctAnswer,
@@ -153,8 +162,12 @@ function checkAnswer() {
 	console.log(correctAnswer);
 
 	if(correctAnswer == answer) {
-		alert("Correct!");
+		score++;
+		d3.select("#tally").text(score);
+	} else {
+		alert("Sorry, the answer was "+correctAnswer);
 	}
+	newQuestionV1();
 }
 
 
@@ -163,6 +176,29 @@ function checkAnswer() {
 
 
 
+
+
+
+
+//https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffle(array) {
+	var currentIndex = array.length, temporaryValue, randomIndex;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+
+	return array;
+}
 
 
 </script>
