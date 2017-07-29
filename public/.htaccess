@@ -1,2 +1,4 @@
 RewriteEngine On
 RewriteRule ^v1/newQuestion.json$ api/question.php
+RewriteRule ^v2/newQuestion.json$ api/question2.php
+RewriteRule ^v3/newQuestion.json$ api/question3.php

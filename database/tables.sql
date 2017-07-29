@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS question_option;
+DROP TABLE IF EXISTS question;
 CREATE TABLE question (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   question_type TEXT NOT NULL,
@@ -13,6 +15,10 @@ CREATE TABLE question_option (
   question_id bigint(20) NOT NULL,
   description TEXT NOT NULL,
   answer BOOL NOT NULL DEFAULT FALSE,
+  slider_unit VARCHAR(255),
+  slider_min int unsigned,
+  slider_max int unsigned,
+  slider_threshold int unsigned,
   FOREIGN KEY (question_id)
     REFERENCES question (id),
   PRIMARY KEY (id),
