@@ -81,6 +81,12 @@ header h2 {
 	box-shadow: inset 0 1px 0 #3af;
 }
 
+#gamePane {
+	background: rgba(0,0,0,0.1);
+}
+#quizStuff {
+	/*background: rgba(0,0,0,0.1);*/
+}
 
 </style>
 </head>
@@ -101,22 +107,28 @@ header h2 {
 
 	<div class="container page">
 		<div class="row">
-			<div class="col-sm-12">
-				<h1>
-					Quiz:
-				</h1>
+			<div id="gamePane" class="col-sm-8">
+				<h1>Quiz</h1>
 
-				<h3 id="question"></h3>
-				<div id="answers"></div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<h3>Score</h3>
-				<div id="tally">0</div>
-			</div>
-		</div>
+				<div id="quizStuff" class="row col-xs-12">
+					<h3 id="question"></h3>
+					<div id="answers"></div>
+				</div>
 
+				<div id="scoreStuff" class="row col-xs-12">
+					<h3>Score</h3>
+					<div id="tally">0</div>
+				</div>
+			</div>
+
+
+			<div id="infoPane" class="col-sm-4">
+				<h3>Info about the app</h3>
+			</div>
+
+
+
+		</div>
 	</div>
 
 	<footer>
