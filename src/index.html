@@ -75,19 +75,20 @@ header h2 {
 
 	<div class="container page">
 		<div class="row">
-			<div class="col-xs-12">
-			<h1>
-				Quiz:
-			</h1>
+			<div class="col-sm-6">
+				<h1>
+					Quiz:
+				</h1>
 
-			<h3 id="Question"></h3>
-			<ul id="answers">
-				<li><a href="#">Sydney</a></li>
-				<li><a href="#">Melbourne</a></li>
-			</ul>
-
-
-
+				<h3 id="Question"></h3>
+				<ul id="answers">
+					<li><a href="#">Sydney</a></li>
+					<li><a href="#">Melbourne</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-6">
+				<h3>Score</h3>
+				<div id="tally"></div>
 			</div>
 		</div>
 
@@ -127,9 +128,41 @@ $.ajax({
 
 function drawQuestion(data) {
 	console.log(data);
+	d3.select("#question").text(data.question);
+	d3.selectAll("#answers li").remove();
+	var answers = d3.select("#answers");
 
-	
+	var correctAnswer = data.answers[0];
+
+	data.answers.forEach(function(answer){
+		answers.append("li")
+			.append("a").attr({
+				correctAnswer: correctAnswer,
+				href: "#"
+			}).text(answer)
+			.on("click", checkAnswer);
+	});
+
 }
+
+function checkAnswer() {
+	console.log("checking answer!");
+	console.log(this);
+	var correctAnswer = d3.select(this).attr("correctAnswer");
+	var answer = d3.select(this).text();
+	console.log(correctAnswer);
+
+	if(correctAnswer == answer) {
+		alert("Correct!");
+	}
+}
+
+
+
+
+
+
+
 
 
 </script>
@@ -138,3 +171,70 @@ function drawQuestion(data) {
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
