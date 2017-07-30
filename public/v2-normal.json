@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "type": "Multiple Choice",
+  "question": "What is the capital of Victoria?",
+  "correctAnswer": "Melbourne",
+  "otherAnswers": ["Sydney", "Canberra"],
+  "endMessage": "Sorry, the correct answer was Melbourne!",
+  "historic": []
+}

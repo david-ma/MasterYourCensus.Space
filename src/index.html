@@ -164,15 +164,16 @@ header h2 {
 <script>
 var score = 0;
 
-newQuestionV3();
-//newQuestionV3("/v2-slider.json");
+//newQuestion();
+//newQuestion("/v2-slider.json");
+newQuestion("/v2-slider.json");
 
 
 
 
-function newQuestionV3(url) {
+function newQuestion(url) {
 //	var url = url || "http://www.masteryourcensus.space/v3/newQuestion.json";
-	var url = url || "http://www.masteryourcensus.space/api/question4.php";
+	var url = url || "http://www.masteryourcensus.space/api/question3.php?id=1";
 
 
 	var package = {
@@ -199,28 +200,12 @@ function newQuestionV3(url) {
 			} else {
 				console.log("The first attempt didn't work... calling the local version");
 				console.warn(response);
-				newQuestionV3("/v2-slider.json");
+				newQuestion("/v2-slider.json");
 			}
 		}
 	});
 }
 
-
-function newQuestionV1(url) {
-	var url = url || "http://www.masteryourcensus.space/v1/newQuestion.json";
-	$.ajax({
-		url: url,
-		complete: function(response){
-			if (response.status && response.status == 200) {
-				var data = JSON.parse(response.responseText);
-				drawQuestion(data);
-			} else {
-				console.error(response);
-				newQuestionV1("/exampleQuestion.json");
-			}
-		}
-	});
-}
 
 function drawSlider(data) {
 	console.log(data);
@@ -275,7 +260,7 @@ function drawQuestion(data) {
 	d3.selectAll("#answers .answer").remove();
 	var answers = d3.select("#answers");
 
-	var correctAnswer = data.answers[0];
+	var correctAnswer = data.
 
 	shuffle(data.answers).forEach(function(answer){
 		answers
