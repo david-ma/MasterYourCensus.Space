@@ -75,6 +75,7 @@ function getQuestion($id) {
             $question->unit = $row->slider_unit;
             $question->min = floatval($row->slider_min);
             $question->max = floatval($row->slider_max);
+            $question->threshold = floatval($row->slider_threshold);
           } else {
             if ($row->answer == true) {
               $question->correctAnswer = $row->description;
