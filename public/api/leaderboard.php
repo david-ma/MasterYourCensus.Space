@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $leaderboard = postLeaderboard($tla, $score);
 
-  if (!property_exists($leaderboard, "error")) {
+  if (!array_key_exists("error", $leaderboard)) {
    $leaderboard = getLeaderboard();
   }
 }
@@ -55,12 +55,12 @@ function getLeaderboard() {
 function postLeaderboard($tla, $score) {
   $myc = new mysqli('localhost', DB_USER, DB_PASS, DB_SCHEMA);
   
-  if ($tla== "") {
-    return (object) array("error" => "Invalid TLA");
+  if ($tla == "") {
+    return array("error" => "Invalid TLA");
   }
 
   if ($score == "") {
-    return (object) array("error" => "Invalid score.");
+    return array("error" => "Invalid score.");
   }
 
   $stmt = $myc->prepare("REPLACE INTO leaderboard (tla, score) VALUES (?, ?)");
@@ -69,6 +69,8 @@ function postLeaderboard($tla, $score) {
 
   $stmt->close();
   $myc->close();
+
+  return array();
 }
 
 header("Content-Type: application/json");
