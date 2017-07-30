@@ -2,3 +2,10 @@ RewriteEngine On
 RewriteRule ^v1/newQuestion.json$ api/question.php
 RewriteRule ^v2/newQuestion.json$ api/question2.php
 RewriteRule ^v3/newQuestion.json$ api/question3.php
+RewriteRule ^v4/newQuestion/?([0-9]*) api/question4.php?id=$1 [QSA,NC,L]
+RewriteRule ^v4/fetchQuestion.json$ api/response.php
+
+
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
+

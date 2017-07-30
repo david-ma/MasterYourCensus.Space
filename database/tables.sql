@@ -24,3 +24,21 @@ CREATE TABLE question_option (
   PRIMARY KEY (id),
   KEY id (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE question_response (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  question_id bigint(20) NOT NULL,
+  correct BOOL NOT NULL DEFAULT FALSE,
+  answer TEXT NOT NULL,
+  FOREIGN KEY (question_id)
+    REFERENCES question (id),
+  PRIMARY KEY (id),
+  KEY id (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE leaderboard (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  tla char(3) NOT NULL,
+  score int unsigned,
+  created_on timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY id (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
