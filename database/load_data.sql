@@ -16,4 +16,3 @@ INSERT INTO question_option (question_id, answer, description, slider_unit, slid
 (LAST_INSERT_ID(), TRUE, '10', '%', 0, 100, 20);
 INSERT INTO leaderboard (tla, score) VALUES ('HAL', 1);
 INSERT INTO leaderboard (tla, score) VALUES ('GLX', 42);
-

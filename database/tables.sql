@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS leaderboard;
+DROP TABLE IF EXISTS question_response;
 DROP TABLE IF EXISTS question_option;
 DROP TABLE IF EXISTS question;
 CREATE TABLE question (
@@ -35,10 +37,9 @@ CREATE TABLE question_response (
   KEY id (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE leaderboard (
-  id bigint(20) NOT NULL AUTO_INCREMENT,
   tla char(3) NOT NULL,
   score int unsigned,
   created_on timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (id),
-  KEY id (id)
+  PRIMARY KEY (tla),
+  KEY id (tla)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -43,8 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $question = getQuestion($question_id);
 
   if ($question->id == $question_id) {
-    $question = postResponse($question, $correct, $answer);
-    #$question = getQuestion();
+    postResponse($question, $correct, $answer);
+    $question = getQuestion();
   } else {
     $question = (object) array("error"=>"Question not found.");
   }
@@ -110,7 +110,6 @@ function postResponse($question, $correct, $answer) {
     $response->answer = floatval($answer);
   } else {
     # check whether the answer exists
-    $blah = 0;
     if ($correct) {
       if ($answer != $question->correctAnswer) {
         return (object) array("error" => "Don't lie to me!");
@@ -128,8 +127,6 @@ function postResponse($question, $correct, $answer) {
 
   $response_stmt->close();
   $myc->close();
-
-  return $question;
 }
 
 header("Content-Type: application/json");
