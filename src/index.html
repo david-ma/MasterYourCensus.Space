@@ -113,7 +113,19 @@ header h2 {
 	}
 }
 
+.hide {
+	display: none;
+}
 
+tr:first-child {
+	background: rgba(0,0,0,0.2);
+}
+
+td {
+	border: 1px solid black;
+	width: 150px;
+	background: rgba(0,0,0,0.1);
+}
 
 
 
@@ -140,7 +152,20 @@ header h2 {
 	</header>
 
 	<div class="container page">
-		<div class="row">
+		<div class="row hide" id="gameoverStuff">
+			<div class="col-sm-8 col-sm-offset-2">
+			<h2>Congratulations! Your score was: <span id="finalScore"></span></h2>
+
+			<table id='winners'>
+				<tr>
+					<td>Name</td>
+					<td>School</td>
+					<td>Score</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+		<div class="row" id="gameStuff">
 			<div id="gamePane" class="col-xs-12 col-sm-8">
 				<div id="quizStuff" class="row col-xs-12">
 					<h3 id="question"></h3>
@@ -163,14 +188,22 @@ header h2 {
 		</div>
 	</div>
 
-	<footer>
-		<div class="container">
-			<div class="row">
-				<p class="col-xs-6">Simple <a href="https://github.com/david-ma/Thalia">Thalia</a> Bootstrap Boilerplate</p>
-				<p class="col-xs-6 text-right">By <a href="https://twitter.com/frostickle">@Frostickle</a> <i class="fa fa-twitter" aria-hidden="true"></i></p>
-			</div>
-		</div>
-	</footer>
+
+
+
+	<!--<footer>-->
+		<!--<div class="container">-->
+			<!--<div class="row">-->
+				<!--<p class="col-xs-6">Simple <a href="https://github.com/david-ma/Thalia">Thalia</a> Bootstrap Boilerplate</p>-->
+				<!--<p class="col-xs-6 text-right">By <a href="https://twitter.com/frostickle">@Frostickle</a> <i class="fa fa-twitter" aria-hidden="true"></i></p>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</footer>-->
+
+
+
+
+
 	<link rel="stylesheet" href="/css/main.css">
 	<link rel="stylesheet" href="/css/jquery-ui.min.css">
 	<link rel="stylesheet" href="/css/jquery-ui.structure.min.css">
@@ -356,11 +389,38 @@ function correct(){
 		});
 }
 
-
+endgame();
 function endgame() {
+	$("#gameoverStuff").toggleClass("hide");
+	$("#gameStuff").toggleClass("hide");
+	d3.select("#finalScore").text(score);
+	d3.select("final")
+
+	d3.csv('dummywinners.csv', function(e,data){
+		var array = [];
+		data.forEach(function(row){
+			if(row.name && row.score) {
+				array.push(row);
+			}
+		});
+		array.sort((a,b) => a.score - b.score);
+		drawWinners(array);
+	});
 
 }
 
+function drawWinners(data){
+	console.log(data);
+	var winners = d3.select("#winners");
+	data.forEach(function(row){
+		var tr = winners.append("tr").datum(row);
+		tr.append("td").html(row.name);
+		tr.append("td").html(row.school);
+		tr.append("td").html(row.score);
+
+	})
+
+}
 
 
 
