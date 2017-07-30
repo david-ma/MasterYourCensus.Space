@@ -88,6 +88,13 @@ header h2 {
 	/*background: rgba(0,0,0,0.1);*/
 }
 
+
+
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -140,6 +147,10 @@ header h2 {
 		</div>
 	</footer>
 	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/jquery-ui.min.css">
+	<link rel="stylesheet" href="/css/jquery-ui.structure.min.css">
+	<link rel="stylesheet" href="/css/jquery-ui.theme.min.css">
+	<link rel="stylesheet" href="/css/main.css">
 	<script src="/js/vendor.min.js"></script>
 	<script src="/js/scripts.min.js"></script>
 
@@ -153,19 +164,19 @@ header h2 {
 <script>
 var score = 0;
 
-//newQuestionV3();
-newQuestionV3("/v2-slider.json");
+newQuestionV3();
+//newQuestionV3("/v2-slider.json");
 
 
 
 
 function newQuestionV3(url) {
-	var url = url || "http://www.masteryourcensus.space/v3/newQuestion.json";
+//	var url = url || "http://www.masteryourcensus.space/v3/newQuestion.json";
+	var url = url || "http://www.masteryourcensus.space/api/question4.php";
 
 
 	var package = {
 		"test": "Hello World"
-
 	};
 
 	$.ajax({
@@ -186,7 +197,7 @@ function newQuestionV3(url) {
 				}
 
 			} else {
-				console.log("The first attempt didn't work... calling the local version")
+				console.log("The first attempt didn't work... calling the local version");
 				console.warn(response);
 				newQuestionV3("/v2-slider.json");
 			}
@@ -215,6 +226,43 @@ function drawSlider(data) {
 	console.log(data);
 	d3.select("#question").text(data.question);
 	d3.selectAll("#answers .answer").remove();
+
+	var answerBox = d3.select("#answers");
+
+	answerBox.append("div").attrs({
+		id: "slider"
+	}).styles({
+		margin: "5px 0"
+	});
+
+	answerBox
+		.append('p')
+		.append("input").attrs({
+			style: "border:0; color:#f6931f; font-weight:bold;",
+			id: "amount",
+			type: "text",
+			readonly: true
+		});
+
+	answerBox
+		.append("a").classed("answer", true)
+		.attr('href', '#')
+		.text("Submit")
+		.on("click", checkAnswer);
+
+	$( "#slider" ).slider({
+		range: "min",
+		value: 37,
+		min: 1,
+		max: 700,
+		slide: function( event, ui ) {
+			$( "#amount" ).val( "$" + ui.value );
+
+		}
+	});
+
+
+//	$( "#amount" ).val( "$" + $( "#answers" ).slider( "value" ) );
 
 }
 
