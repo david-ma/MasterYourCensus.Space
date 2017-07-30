@@ -115,8 +115,6 @@ header h2 {
 	<div class="container page">
 		<div class="row">
 			<div id="gamePane" class="col-xs-12 col-sm-8">
-				<h1>Quiz</h1>
-
 				<div id="quizStuff" class="row col-xs-12">
 					<h3 id="question"></h3>
 					<div id="answers"></div>
@@ -164,8 +162,8 @@ header h2 {
 <script>
 var score = 0;
 
-//newQuestion();
-newQuestion("/v2-slider.json");
+newQuestion();
+//newQuestion("/v2-slider.json");
 //newQuestion("/v2-normal.json");
 
 
@@ -225,6 +223,8 @@ function drawSlider(data) {
 			readonly: true
 		});
 
+	$( "#amount" ).val( data.min + " " + data.unit);
+
 	answerBox
 		.append("a").classed("answer", true)
 		.attr('href', '#')
@@ -238,7 +238,6 @@ function drawSlider(data) {
 		max: data.max,
 		slide: function( event, ui ) {
 			$( "#amount" ).val( ui.value + " " + data.unit);
-
 		}
 	});
 
@@ -289,6 +288,8 @@ function checkAnswer() {
 
 		if(answer < correctAnswer + threshold && answer > correctAnswer - threshold) {
 			correct();
+		} else {
+			wrong();
 		}
 
 
@@ -298,17 +299,22 @@ function checkAnswer() {
 		if(correctAnswer == buttonAnswer) {
 			correct();
 		} else {
-			alert("Sorry, the answer was "+correctAnswer);
+			wrong();
 		}
 	}
 
 
 }
 
+function wrong() {
+	console.log("wrong answer");
+	correct();
+}
+
 function correct(){
 	score++;
 	d3.select("#tally").text(score);
-	d3.select("#quizStuff")
+	d3.select("#answerBox")
 		.transition()
 		.style("padding-left", "1000px")
 		.on("end", function(d){
