@@ -62,6 +62,8 @@ header h2 {
 	padding: 5px;
 	margin: 5px;
 	float: left;
+	min-width: 50px;
+	text-align: center;
 
 
 
@@ -207,8 +209,8 @@ td {
 					<div class="col-xs-6">
 						<h3><a href="#showLeaderboard" onclick="endgame()">Leaderboard</a></h3>
 					</div>
-					<div class="col-xs-6 hide">
-						<h3>Previous Answer</h3>
+					<div id="pastquestions" class="col-xs-6 hide">
+						<h3>Previous Question!</h3>
 						<p id="pastQuestion"></p>
 						<p id="pastAnswer"></p>
 					</div>
@@ -269,7 +271,7 @@ td {
 
 <script>
 var score = 0;
-
+var questions = [];
 newQuestion();
 //newQuestion("/v2-slider.json");
 //newQuestion("/v2-normal.json");
@@ -295,6 +297,24 @@ function newQuestion(url) {
 		complete: function(response){
 			if (response.status && response.status == 200) {
 				var data = JSON.parse(response.responseText);
+
+
+				if(questions[0]) {
+					var past = questions[questions.length - 1];
+
+					var ans = past.correctAnswer;
+					if(past.type == "Slider") {
+						ans += " "+past.unit;
+					}
+
+					$("#pastquestions").removeClass("hide");
+					$("#pastQuestion").text(past.question);
+					$("#pastAnswer").text(ans);
+
+				}
+
+
+				questions.push(data);
 
 //				console.log(data);
 				if(data.type == "Slider") {
