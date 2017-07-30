@@ -114,7 +114,7 @@ header h2 {
 
 	<div class="container page">
 		<div class="row">
-			<div id="gamePane" class="col-sm-8">
+			<div id="gamePane" class="col-xs-12 col-sm-8">
 				<h1>Quiz</h1>
 
 				<div id="quizStuff" class="row col-xs-12">
@@ -129,7 +129,7 @@ header h2 {
 			</div>
 
 
-			<div id="infoPane" class="col-sm-4">
+			<div id="infoPane" class="col-xs-12 col-sm-4">
 				<h3>Info about the app</h3>
 			</div>
 
@@ -165,8 +165,8 @@ header h2 {
 var score = 0;
 
 //newQuestion();
-//newQuestion("/v2-slider.json");
 newQuestion("/v2-slider.json");
+//newQuestion("/v2-normal.json");
 
 
 
@@ -194,7 +194,7 @@ function newQuestion(url) {
 				if(data.type == "Slider") {
 					drawSlider(data);
 				} else {
-					drawQuestion(data);
+					drawNormalQuestion(data);
 				}
 
 			} else {
@@ -208,11 +208,7 @@ function newQuestion(url) {
 
 
 function drawSlider(data) {
-	console.log(data);
-	d3.select("#question").text(data.question);
-	d3.selectAll("#answers .answer").remove();
-
-	var answerBox = d3.select("#answers");
+	var answerBox = setupQuestion(data);
 
 	answerBox.append("div").attrs({
 		id: "slider"
@@ -236,69 +232,92 @@ function drawSlider(data) {
 		.on("click", checkAnswer);
 
 	$( "#slider" ).slider({
-		range: "min",
-		value: 37,
-		min: 1,
-		max: 700,
+//		range: "min",
+		value: data.min,
+		min: data.min,
+		max: data.max,
 		slide: function( event, ui ) {
-			$( "#amount" ).val( "$" + ui.value );
+			$( "#amount" ).val( ui.value + " " + data.unit);
 
 		}
 	});
 
 
-//	$( "#amount" ).val( "$" + $( "#answers" ).slider( "value" ) );
+}
 
+function setupQuestion(data) {
+	console.log("Setting up new question");
+	console.log(data);
+	d3.select("#question").text(data.question);
+	var answerBox = d3.select("#answers")
+			.append("div")
+			.attrs({
+				id: "answerBox"
+			}).datum(data);
+	return answerBox;
 }
 
 
+function drawNormalQuestion(data) {
+	var answerBox = setupQuestion(data);
 
+	var correctAnswer = data.correctAnswer;
+	data.otherAnswers.push(correctAnswer);
 
-function drawQuestion(data) {
-	console.log(data);
-	d3.select("#question").text(data.question);
-	d3.selectAll("#answers .answer").remove();
-	var answers = d3.select("#answers");
-
-	var correctAnswer = data.
-
-	shuffle(data.answers).forEach(function(answer){
-		answers
+	shuffle(data.otherAnswers).forEach(function(answer){
+		answerBox
 			.append("a").classed("answer", true)
 				.attr("correctAnswer", correctAnswer)
 				.attr('href', '#')
 				.text(answer)
 			.on("click", checkAnswer);
 	});
-
 }
 
 function checkAnswer() {
 	console.log("checking answer!");
 	console.log(this);
 	var correctAnswer = d3.select(this).attr("correctAnswer");
-	var answer = d3.select(this).text();
-	console.log(correctAnswer);
+	var buttonAnswer = d3.select(this).text();
 
-	if(correctAnswer == answer) {
-		score++;
-		d3.select("#tally").text(score);
+	var data = d3.select("#answerBox").datum();
+
+	if(data.type == "Slider") {
+		console.log("dealing with a slider here");
+		var answer = parseInt($("#amount").val());
+		var threshold = data.threshold || 20;
+
+		if(answer < correctAnswer + threshold && answer > correctAnswer - threshold) {
+			correct();
+		}
+
+
+
 	} else {
-		alert("Sorry, the answer was "+correctAnswer);
+		console.log("normal question");
+		if(correctAnswer == buttonAnswer) {
+			correct();
+		} else {
+			alert("Sorry, the answer was "+correctAnswer);
+		}
 	}
-	d3.select("#quizStuff")
-		.transition()
-		.style("padding-left", "1000px")
-		.on("end", function(d){
-			newQuestionV1();
-			d3.select("#quizStuff").style("padding-left", "15px");
-			console.log("end");
-		});
 
 
 }
 
-
+function correct(){
+	score++;
+	d3.select("#tally").text(score);
+	d3.select("#quizStuff")
+		.transition()
+		.style("padding-left", "1000px")
+		.on("end", function(d){
+			d3.select("#answerBox").remove();
+			newQuestion();
+			d3.select("#quizStuff").style("padding-left", "15px");
+			console.log("end");
+		});
+}
 
 
 
