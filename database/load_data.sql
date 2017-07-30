@@ -171,9 +171,38 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Slider',
-'Religion',
-'How many people in Glen Waverley are seeking Buddhist enlightenment?',
-'Unfortunately, you won\'t reach nirvana with that religion!');
+'Demographic',
+"What percentage of Glen Waverley does not have cars?",
+"Nope! Only 4.7% of people are car-less. Just like you were care-less in answering this question!");
 INSERT INTO question_option (question_id, answer, description, slider_unit, slider_min, slider_max, slider_threshold) VALUES
-(LAST_INSERT_ID(), TRUE, '10', '%', 0, 100, 20);
+(LAST_INSERT_ID(), TRUE, '4.7', '%', 0, 100, 10);
+INSERT INTO question (question_type, category, question, end_message) VALUES (
+'Slider',
+'Demographic',
+"What percentage of people in Glen Waverley did volunteer work in 2016?",
+"Actually, only 21%! Maybe you should stop playing and start volunteering");
+INSERT INTO question_option (question_id, answer, description, slider_unit, slider_min, slider_max, slider_threshold) VALUES
+(LAST_INSERT_ID(), TRUE, '20.7', '%', 0, 100, 10);
+INSERT INTO question (question_type, category, question, end_message) VALUES (
+'Slider',
+'Religion',
+"What is the percentage of Buddhists that live in Glen Waverley?",
+"Unfortunately, you won't reach Nirvana with that religion!");
+INSERT INTO question_option (question_id, answer, description, slider_unit, slider_min, slider_max, slider_threshold) VALUES
+(LAST_INSERT_ID(), TRUE, '10', '%', 0, 100, 10);
+INSERT INTO question (question_type, category, question, end_message) VALUES (
+'Slider',
+'Religion',
+"How much of Glen Waverley is made up of people who arrived in Australia after 1996?",
+"34% of Glen Waverley arrived in Australia from 1996 until now!");
+INSERT INTO question_option (question_id, answer, description, slider_unit, slider_min, slider_max, slider_threshold) VALUES
+(LAST_INSERT_ID(), TRUE, '34.44', '%', 0, 100, 10);
+INSERT INTO question (question_type, category, question, end_message) VALUES (
+'Slider',
+'Demographic',
+"What percentage of Australians cared for their own children, rather than using child care or other alternatives?",
+"Nice try, 8% of Australians personally looked after their own children.");
+INSERT INTO question_option (question_id, answer, description, slider_unit, slider_min, slider_max, slider_threshold) VALUES
+(LAST_INSERT_ID(), TRUE, '7.8', '%', 0, 100, 10);
+
 INSERT INTO leaderboard (tla, score) VALUES ('HAL', 1);
