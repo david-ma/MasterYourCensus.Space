@@ -14,7 +14,8 @@ body {
 }
 
 .page {
-	background-color: #fff;
+	/*background-color: #fff;*/
+	background: rgba(0,0,0,0.1);
 }
 
 header {
@@ -79,9 +80,12 @@ header h2 {
 	border-color: #005999;
 	box-shadow: inset 0 1px 0 #3af;
 }
-
+#gameStuff {
+	height: 100%;
+}
 #gamePane {
-	background: rgba(0,0,0,0.1);
+	/*height: 100%;*/
+	/*background: rgba(0,0,0,0.1);*/
 }
 #quizStuff {
 	padding-left: 15px;
@@ -116,7 +120,9 @@ header h2 {
 .hide {
 	display: none;
 }
-
+#winners {
+	margin-bottom: 50px;
+}
 tr:first-child {
 	background: rgba(0,0,0,0.2);
 }
@@ -126,7 +132,9 @@ td {
 	width: 150px;
 	background: rgba(0,0,0,0.1);
 }
-
+#infoPane {
+	background: #eee;
+}
 
 
 </style>
@@ -180,7 +188,18 @@ td {
 
 
 			<div id="infoPane" class="col-xs-12 col-sm-4">
-				<h3>Info about the app</h3>
+				<h3>Challenge</h3>
+<p>Census data is vital to policy decision in Australia, and yet many people don't know how to access it or use it. Census data is presented as PDFs and tables, but non-technical people won't really engage with it</p>
+				<h3>Solution</h3>
+<p>We've created an engaging Census quiz that hooks people in using elements of gamification. We focused on educating the younger generation, incorporating a school competition and leaderboard to incentivise them to keep playing and learning about the Census!</p>
+				<h3>Team</h3>
+					<ul>
+						<li><a href="https://au.linkedin.com/in/aidan-majewski">Aidan Majewski</a></li>
+						<li><a href="https://twitter.com/smitingshark">Beverly Goh</a></li>
+						<li><a href="https://twitter.com/frostickle">David Ma</a></li>
+						<li><a href="https://twitter.com/_TimMcMahon">Tim McMahon</a></li>
+						<li><a href="https://twitter.com/turtlevince">Vincent Leung</a></li>
+					</ul>
 			</div>
 
 
@@ -389,7 +408,7 @@ function correct(){
 		});
 }
 
-endgame();
+//endgame();
 function endgame() {
 	$("#gameoverStuff").toggleClass("hide");
 	$("#gameStuff").toggleClass("hide");
@@ -403,7 +422,7 @@ function endgame() {
 				array.push(row);
 			}
 		});
-		array.sort((a,b) => a.score - b.score);
+		array.sort((a,b) => b.score - a.score);
 		drawWinners(array);
 	});
 
