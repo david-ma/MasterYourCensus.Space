@@ -158,6 +158,17 @@ td {
 #tally {
 	float: right;
 }
+#correctness {
+	padding: 5px;
+	border-radius: 5px;
+
+	/*background: rgba(255,0,0,0.5);*/
+	background: rgba(0,255,0,0.5);
+}
+#correctness.wrong {
+	/*background: #ffa3a8;*/
+	background: rgba(255,0,0,0.5);
+}
 
 </style>
 </head>
@@ -206,13 +217,13 @@ td {
 					</div>
 
 
-					<div class="col-xs-6">
-						<h3><a href="#showLeaderboard" onclick="endgame()">Leaderboard</a></h3>
+					<div id="pastquestions" class="col-sm-10 hide">
+						<h3>Previous Question <span id="correctness"></span></h3>
+						<p>Q: <span id="pastQuestion"></span></p>
+						<p>A: <span id="pastAnswer"></span></p>
 					</div>
-					<div id="pastquestions" class="col-xs-6 hide">
-						<h3>Previous Question!</h3>
-						<p id="pastQuestion"></p>
-						<p id="pastAnswer"></p>
+					<div class="col-sm-2">
+						<h3><a href="#showLeaderboard" onclick="endgame()">Leaderboard</a></h3>
 					</div>
 				</div>
 			</div>
@@ -441,10 +452,12 @@ function wrong() {
 	} else {
 		endgame();
 	}
+	d3.select("#correctness").text("Wrong :(").classed("wrong", true);
 }
 
 function correct(){
 	score++;
+	d3.select("#correctness").text("Correct!").classed("wrong", false);
 	d3.select("#tally").text(score);
 	d3.select("#answerBox")
 		.transition()
