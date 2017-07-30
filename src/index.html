@@ -425,16 +425,41 @@ function endgame() {
 	d3.select("#finalScore").text(score);
 	d3.select("final");
 
-	d3.csv('dummywinners.csv', function(e,data){
-		var array = [];
-		data.forEach(function(row){
-			if(row.name && row.score) {
-				array.push(row);
+	$.ajax({
+		type: "GET",
+		url: "http://www.masteryourcensus.space/api/leaderboard.php",
+		complete: function(response){
+			if (response.status && response.status == 200) {
+				var data = JSON.parse(response.responseText);
+
+				var array = [];
+
+				data.sort((a,b) => b.score - a.score)
+					.forEach(function(d){
+						array.push(d);
+					});
+
+//				console.log(data);
+				drawWinners(array);
+
+
 			}
-		});
-		array.sort((a,b) => b.score - a.score);
-		drawWinners(array);
+		}
 	});
+
+
+//
+//
+//	d3.csv('dummywinners.csv', function(e,data){
+//		var array = [];
+//		data.forEach(function(row){
+//			if(row.name && row.score) {
+//				array.push(row);
+//			}
+//		});
+//		array.sort((a,b) => b.score - a.score);
+//		drawWinners(array);
+//	});
 
 }
 
