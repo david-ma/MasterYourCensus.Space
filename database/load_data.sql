@@ -51,8 +51,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), '200,000', FALSE),
 (LAST_INSERT_ID(), '1,000,000', FALSE)
 ;
-
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Demographic',
@@ -64,8 +62,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), '12,781', FALSE),
 (LAST_INSERT_ID(), '14,221', FALSE)
 ;
-
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Religion',
@@ -77,7 +73,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), 'Hinduism', FALSE),
 (LAST_INSERT_ID(), 'Islam', FALSE)
 ;
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Demographic',
@@ -89,7 +84,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), 'Cantonese', FALSE),
 (LAST_INSERT_ID(), 'Tamil', FALSE)
 ;
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Demographic',
@@ -110,8 +104,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), 'More', TRUE),
 (LAST_INSERT_ID(), 'Less', FALSE)
 ;
-
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Cultural Diversity',
@@ -123,8 +115,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), '30', FALSE),
 (LAST_INSERT_ID(), '20', FALSE)
 ;
-
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Housing',
@@ -134,8 +124,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), 'Glen Waverley', TRUE),
 (LAST_INSERT_ID(), 'Clayton', FALSE)
 ;
-
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Demographic',
@@ -147,8 +135,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), '20-24', FALSE),
 (LAST_INSERT_ID(), '35-39', FALSE)
 ;
-
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Demographic',
@@ -171,8 +157,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), '7432', FALSE),
 (LAST_INSERT_ID(), '1', FALSE)
 ;
-
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Multiple Choice',
 'Income',
@@ -185,8 +169,6 @@ INSERT INTO question_option (question_id, description, answer) VALUES
 (LAST_INSERT_ID(), '2000', FALSE)
 ;
 
-
-
 INSERT INTO question (question_type, category, question, end_message) VALUES (
 'Slider',
 'Religion',
@@ -195,4 +177,3 @@ INSERT INTO question (question_type, category, question, end_message) VALUES (
 INSERT INTO question_option (question_id, answer, description, slider_unit, slider_min, slider_max, slider_threshold) VALUES
 (LAST_INSERT_ID(), TRUE, '10', '%', 0, 100, 20);
 INSERT INTO leaderboard (tla, score) VALUES ('HAL', 1);
-INSERT INTO leaderboard (tla, score) VALUES ('GLX', 42);
