@@ -1,0 +1,111 @@
+
+
+///v4/fetchQuestion POST
+{
+"question_id": 1,
+"answer": "Sydney",
+"correct": false
+},
+
+
+
+
+
+[{
+  "id": 1,
+  "type": "Multiple Choice",
+  "question": "What is the capital of Victoria?",
+  "correctAnswer": "Melbourne",
+  "otherAnswers": ["Sydney", "Canberra"],
+  "endMessage": "Sorry, the correct answer was Melbourne!",
+  "historic": [
+      answers: [{
+        question_id: 1,
+        answer: "Sydney",
+        correct: false,
+        timestamp:
+      }]
+  ]
+}
+
+,
+
+
+{
+  "id": 2,
+  "type": "Slider",
+  "question": "How many people in Glen Waverley are seeking Buddhist enlightenment?",
+  "correctAnswer": 10,
+  "unit": "%",
+  "min": 0,
+  "max": 100,
+  "threshold": 20,
+  "endMessage": "Unfortunately, you won't reach nirvana with that religion!"
+  "historic": [
+    answers: [{
+    question_id: 1,
+    answer: 50,
+    correct: false,
+    timestamp:
+    }]
+  ]
+}
+,
+
+{
+  "id": 2,
+  "type": "Slider",
+  "question": "How many people in Glen Waverley are seeking Buddhist enlightenment?",
+  "correctAnswer": 10,
+//  "unit": "%", defaults to %
+//  "min": 0, default 0
+//  "max": 100, default 100
+//  "threshold": 20, default 20
+  "endMessage": "Unfortunately, you won't reach nirvana with that religion!"
+}
+
+,
+
+{
+  "id": 2,
+  "type": "Slider",
+  "question": "How many people in Glen Waverley are seeking Buddhist enlightenment?",
+  "correctAnswer": 10,
+  "unit": "%",
+  "min": 0,
+  "max": 100,
+  "threshold": 20,
+  "endMessage": "Unfortunately, you won't reach nirvana with that religion!"
+}
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
