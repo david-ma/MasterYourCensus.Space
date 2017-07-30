@@ -131,9 +131,20 @@ td {
 	border: 1px solid black;
 	width: 150px;
 	background: rgba(0,0,0,0.1);
+	text-align: center;
 }
 #infoPane {
 	background: #eee;
+}
+
+#submitButtonBox {
+	background: pink;
+	color: black;
+	font-weight: 900;
+}
+
+#submitButtonBox {
+	background: lightblue;
 }
 
 
@@ -408,12 +419,11 @@ function correct(){
 		});
 }
 
-//endgame();
 function endgame() {
 	$("#gameoverStuff").toggleClass("hide");
 	$("#gameStuff").toggleClass("hide");
 	d3.select("#finalScore").text(score);
-	d3.select("final")
+	d3.select("final");
 
 	d3.csv('dummywinners.csv', function(e,data){
 		var array = [];
@@ -428,22 +438,94 @@ function endgame() {
 
 }
 
+var formDrawnFlag = false;
+
 function drawWinners(data){
 	console.log(data);
 	var winners = d3.select("#winners");
 	data.forEach(function(row){
+		if(!formDrawnFlag && score > row.score) {
+			drawForm(winners);
+		}
+
 		var tr = winners.append("tr").datum(row);
 		tr.append("td").html(row.name);
 		tr.append("td").html(row.school);
 		tr.append("td").html(row.score);
 
-	})
-
+	});
+	if(!formDrawnFlag && score != 0) {
+		drawForm(winners);
+	}
 }
 
 
+function drawForm(winners){
+	formDrawnFlag = true;
+	var formTR = winners.append("tr");
+
+	formTR.append("td").append("input").attrs({
+		id: "focusHerePlease",
+		placeholder: "Enter Your Name"
+	}).on("keydown", function(){
+		if(d3.event.code == "Enter") {
+			document.getElementById("nowfocusHerePlease").focus();
+		}
+	});
+	formTR.append("td").append("input").attrs({
+		id: "nowfocusHerePlease",
+		placeholder: "Enter Your School Email"
+	}).on("keydown", function(){
+		if(d3.event.code == "Enter") {
+			submitScore();
+		}
+	});
+
+	formTR.append("td").html(score);
+
+	formTR.append("td").attrs({
+		id: "submitButtonBox"
+	}).append("a").attrs({
+		id: "submitScoreButton",
+		href:"#submit"
+	}).html("Submit").on("click",function(){
+		console.log("submitting!!!");
+		submitScore();
+	});
+
+	document.getElementById("focusHerePlease").focus();
+}
 
 
+function submitScore() {
+	var school = $("#nowfocusHerePlease").val();
+
+	var package = {
+		name: $("#focusHerePlease").val(),
+		school: school,
+		email: $("#nowfocusHerePlease").val(),
+		score: score
+	};
+
+	alert("Your score has been entered!");
+	location.reload();
+//	$.ajax({
+//		type: "POST",
+//		url: "http://masteryourcensus.space/api/leaderboard.php",
+//		contentType: "application/json; charset=utf-8",
+//		dataType: "json",
+//		data: JSON.stringify(package),
+//		complete: function(response){
+//			if (response.status && response.status == 200) {
+//				var data = JSON.parse(response.responseText);
+//
+//				console.log('something...');
+//				console.log(data);
+//
+//			}
+//		}
+//	});
+}
 
 //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffle(array) {
