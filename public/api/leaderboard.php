@@ -5,6 +5,7 @@ $leaderboard = (object) array();
 $name = "";
 $school = "";
 $score = "";
+$email = "";
 
 if ($_SERVER['REQUEST_METHOD'] != 'GET' && $_SERVER['REQUEST_METHOD'] != 'POST') {
   exit;
@@ -33,8 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $score = $le_json['score'];
     }
   }
+  if (isset($le_json['email'])) {
+    if(preg_match("/^.{1,255}$/", $le_json['email'])) {
+      $email = $le_json['email'];
+    }
+  }
 
-  $leaderboard = postLeaderboard($name, $school, $score);
+  $leaderboard = postLeaderboard($name, $school, $score, $email);
 
   if (!array_key_exists("error", $leaderboard)) {
    $leaderboard = getLeaderboard();
@@ -51,6 +57,7 @@ function getLeaderboard() {
       $leaderboard[] = (object) array("name" => $row->name,
                                     "school" => $row->school,
                                      "score" => $row->score,
+                                     "email" => $row->email,
                                    "created" => $row->created_on);
     }
   }
@@ -61,24 +68,25 @@ function getLeaderboard() {
   return $leaderboard;
 }
 
-function postLeaderboard($name, $school, $score) {
+function postLeaderboard($name, $school, $score, $email) {
   $myc = new mysqli('localhost', DB_USER, DB_PASS, DB_SCHEMA);
   
   if ($name == "") {
     return array("error" => "Missing name.");
   }
-
   if ($school == "") {
     return array("error" => "Missing school.");
   }
-
-
   if ($score == "") {
     return array("error" => "Invalid score.");
   }
+  if ($email == "") {
+    return array("error" => "Invalid email.");
+  }
 
-  $stmt = $myc->prepare("REPLACE INTO leaderboard (name, school, score) VALUES (?, ?, ?)");
-  $stmt->bind_param("ssi", $name, $school, $score);
+
+  $stmt = $myc->prepare("INSERT INTO leaderboard (name, school, score, email) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE score = IF(score < ?, ?, score) ");
+  $stmt->bind_param("ssisii", $name, $school, $score, $email, $score, $score);
   $stmt->execute();
 
   $stmt->close();
