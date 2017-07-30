@@ -111,7 +111,7 @@ function postResponse($question, $correct, $answer) {
     if (!is_numeric($answer)) {
       return (object) array("error" => "Expected the Slider answer to be a number.");
     }
-    $response->answer = floatval($answer);
+    $answer = floatval($answer);
   } else {
     # check whether the answer exists
     if ($correct) {
