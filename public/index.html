@@ -445,13 +445,22 @@ function checkAnswer() {
 
 }
 
+var wrongCount = 0;
+
 function wrong() {
-	console.log("wrong answer");
-	if(confirm("Wrong answer! Continue?")) {
-		correct();
-	} else {
+	wrongCount++;
+	if(wrongCount > 5) {
 		endgame();
+	} else {
+		score = score - 1;
+		correct();
 	}
+//	console.log("wrong answer");
+//	if(confirm("Wrong answer! Continue?")) {
+//		correct();
+//	} else {
+//		endgame();
+//	}
 	d3.select("#correctness").text("Wrong :(").classed("wrong", true);
 }
 
