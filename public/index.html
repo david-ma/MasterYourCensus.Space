@@ -26,8 +26,7 @@ header .blur_background {
 	height: 200px;
 	width: 100%;
 	position: absolute;
-  background: url("/images/census.jpg");
-  background-size: cover;
+	background-size: cover;
 	background-position: 50% 60%;
 }
 footer {
@@ -144,9 +143,9 @@ header h2 {
 	<script src="/js/vendor.min.js"></script>
 	<script src="/js/scripts.min.js"></script>
 
-	<!--Not sure how to use d3.js v4 and attrs-->
-	<!--<script src="/js/d3.min.js"></script>-->
-	<!--<script src="/js/d3-selection-multi.v1.min.js"></script>-->
+	<script src="/js/d3-v4.min.js"></script>
+	<script src="/js/d3-selection-multi.v1.min.js"></script>
+	<script src="/js/jquery-ui.min.js"></script>
 
 
 
@@ -154,16 +153,50 @@ header h2 {
 <script>
 var score = 0;
 
-newQuestionV1();
+//newQuestionV3();
+newQuestionV3("/v2-slider.json");
 
 
 
 
+function newQuestionV3(url) {
+	var url = url || "http://www.masteryourcensus.space/v3/newQuestion.json";
 
+
+	var package = {
+		"test": "Hello World"
+
+	};
+
+	$.ajax({
+		type: "POST",
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify(package),
+		complete: function(response){
+			if (response.status && response.status == 200) {
+				var data = JSON.parse(response.responseText);
+
+//				console.log(data);
+				if(data.type == "Slider") {
+					drawSlider(data);
+				} else {
+					drawQuestion(data);
+				}
+
+			} else {
+				console.log("The first attempt didn't work... calling the local version")
+				console.warn(response);
+				newQuestionV3("/v2-slider.json");
+			}
+		}
+	});
+}
 
 
 function newQuestionV1(url) {
-	var url = url || "/v1/newQuestion.json";
+	var url = url || "http://www.masteryourcensus.space/v1/newQuestion.json";
 	$.ajax({
 		url: url,
 		complete: function(response){
@@ -177,6 +210,16 @@ function newQuestionV1(url) {
 		}
 	});
 }
+
+function drawSlider(data) {
+	console.log(data);
+	d3.select("#question").text(data.question);
+	d3.selectAll("#answers .answer").remove();
+
+}
+
+
+
 
 function drawQuestion(data) {
 	console.log(data);
