@@ -121,6 +121,7 @@ header h2 {
 	display: none;
 }
 #winners {
+	margin-top: 20px;
 	margin-bottom: 50px;
 }
 tr:first-child {
@@ -147,6 +148,14 @@ td {
 	background: lightblue;
 }
 
+#currentScore h3 {
+	background: white;
+	padding: 5px 25px;
+}
+
+#tally {
+	float: right;
+}
 
 </style>
 </head>
@@ -173,8 +182,6 @@ td {
 	<div class="container page">
 		<div class="row hide" id="gameoverStuff">
 			<div class="col-sm-8 col-sm-offset-2">
-			<h2>Congratulations! Your score was: <span id="finalScore"></span></h2>
-
 			<table id="winners">
 				<tr>
 					<td>Name</td>
@@ -192,8 +199,19 @@ td {
 				</div>
 
 				<div id="scoreStuff" class="row col-xs-12">
-					<h3>Score</h3>
-					<div id="tally">0</div>
+					<div id="currentScore">
+						<h3>Score <span id="tally">0</span></h3>
+					</div>
+
+
+					<div class="col-xs-6">
+						<h3><a href="#showLeaderboard" onclick="endgame()">Leaderboard</a></h3>
+					</div>
+					<div class="col-xs-6 hide">
+						<h3>Previous Answer</h3>
+						<p id="pastQuestion"></p>
+						<p id="pastAnswer"></p>
+					</div>
 				</div>
 			</div>
 
@@ -422,8 +440,6 @@ function correct(){
 function endgame() {
 	$("#gameoverStuff").toggleClass("hide");
 	$("#gameStuff").toggleClass("hide");
-	d3.select("#finalScore").text(score);
-	d3.select("final");
 
 	$.ajax({
 		type: "GET",
