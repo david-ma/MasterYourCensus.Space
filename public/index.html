@@ -498,7 +498,7 @@ function drawForm(winners){
 
 
 function submitScore() {
-	var school = $("#nowfocusHerePlease").val();
+	var school = "GovHack School of Hard Knocks";
 
 	var package = {
 		name: $("#focusHerePlease").val(),
@@ -507,24 +507,23 @@ function submitScore() {
 		score: score
 	};
 
-	alert("Your score has been entered!");
-	location.reload();
-//	$.ajax({
-//		type: "POST",
-//		url: "http://masteryourcensus.space/api/leaderboard.php",
-//		contentType: "application/json; charset=utf-8",
-//		dataType: "json",
-//		data: JSON.stringify(package),
-//		complete: function(response){
-//			if (response.status && response.status == 200) {
-//				var data = JSON.parse(response.responseText);
-//
-//				console.log('something...');
-//				console.log(data);
-//
-//			}
-//		}
-//	});
+	$.ajax({
+		type: "POST",
+		url: "http://www.masteryourcensus.space/api/leaderboard.php",
+//		contentType: "text/plain",
+		dataType: "json",
+		data: JSON.stringify(package),
+		complete: function(response){
+			if (response.status && response.status == 200) {
+				var data = JSON.parse(response.responseText);
+
+
+				alert("Your score has been entered!");
+				location.reload();
+
+			}
+		}
+	});
 }
 
 //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
